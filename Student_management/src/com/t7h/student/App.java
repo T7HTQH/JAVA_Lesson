@@ -1,4 +1,4 @@
-package com.nithxt.student;
+package com.t7h.student;
 
 public class App {
     public static void main(String[] args){
