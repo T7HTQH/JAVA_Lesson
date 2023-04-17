@@ -1,4 +1,4 @@
-package com.t7h.test01.student;
+package com.t7h.student;
 
 import java.util.Scanner;
 
@@ -33,7 +33,7 @@ public class App {
     }
     public  static void doAction(int i)
     {
-        switch(i)
+        switch (i)
         {
             case 1:
                 add();
