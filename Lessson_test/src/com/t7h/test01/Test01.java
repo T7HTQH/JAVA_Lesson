@@ -1,4 +1,4 @@
-package com.t7h;
+package com.t7h.test01;
 
 public class Test01 {
     public static void main(String[] args)
