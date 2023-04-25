@@ -8,7 +8,7 @@ public class Test02_d {
         {
             while(n2!=10)
             {
-                System.out.print(""+n1+"*"+n2+"="+(n1*n2)+" \t");
+                System.out.print(""+n1+"*"+n2+"="+(n1*n2)+" ");
                 n2++;
             }
             System.out.print("\n");
