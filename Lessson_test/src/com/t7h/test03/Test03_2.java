@@ -2,14 +2,14 @@ package com.t7h.test03;
 
 public class Test03_2 {
     public abstract static class Animal {
-        private final String name;           //定义私有属性name,表示动物名字
-        private final int age;               //定义私有属性age,表示动物年龄
+        private  String name;
+        private  int age;
         public Animal(String name, int age) {
             this.name = name;
             this.age = age;
         }
-        public abstract void eat();    //定义抽象方法eat()
-        public abstract void sleep();   //定义抽象方法sleep()
+        public abstract void eat();
+        public abstract void sleep();
         public String getName() {     //name属性的getter方法
             return name;
         }
@@ -34,18 +34,15 @@ public class Test03_2 {
             System.out.println("Name: " + getName() + ", Age: " + getAge());
         }
     }
-//    public class Cat extends Animal implements Show {
-//    }   // 同Dog类
     public static class Test {
         public static void main(String[] args) {
-            Dog d = new Dog("Husky", 5);       //创建Dog对象
-            d.eat();                           //调用eat()方法
-            d.sleep();                         //调用sleep()方法
-            d.showInfo();                     //调用showInfo()方法
-            ((Animal) d).eat();                          //调用的是Dog的eat()方法
-            ((Animal) d).sleep();                        //调用的是Dog的sleep()方法
-            // a.showInfo();                  //编译不通过,Animal没有showInfo()方法
-            ((Show) d).showInfo();                     //调用的是Dog的showInfo()方法
+            Dog d = new Dog("Husky", 5);
+            d.eat();
+            d.sleep();
+            d.showInfo();
+            ((Animal) d).eat();
+            ((Animal) d).sleep();
+            ((Show) d).showInfo();
             d.eat();
             d.sleep();
             d.showInfo();
