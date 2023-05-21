@@ -10,9 +10,9 @@ public class Test04 {
             super(message);
         }
         //无参构造方法
-        public InvalidAgeException() {
+       /* public InvalidAgeException() {
             super();
-        }
+        }*/
     }
 
     //People类
