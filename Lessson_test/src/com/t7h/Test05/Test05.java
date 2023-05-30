@@ -38,6 +38,16 @@ public class Test05 {
             // (4)使用TreeSet添加10个Student,并按学号排序遍历
             TreeSet<Student> ts = new TreeSet<>(Comparator.comparing(Student::sno));
             // 添加10个Student...
+            ts.add(new Student("1", "aaa"));
+            ts.add(new Student("3", "bbb"));
+            ts.add(new Student("2", "ccc"));
+            ts.add(new Student("6", "ddd"));
+            ts.add(new Student("5", "eee"));
+            ts.add(new Student("4", "fff"));
+            ts.add(new Student("7", "ggg"));
+            ts.add(new Student("9", "hhh"));
+            ts.add(new Student("8", "iii"));
+            ts.add(new Student("0", "jjj"));
 
             for (Student s : ts) {
                 System.out.println(s.sno() + ", " + s.name());
