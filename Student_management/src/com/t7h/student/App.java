@@ -1,87 +1,321 @@
 package com.t7h.student;
 
-import java.util.Scanner;
+import com.t7h.Test09.Test09;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.List;
 
 public class App {
+    private static int index=0;
+    static String temp_sex ;
+    public static void MenuDemo() throws SQLException {
+        webSql sql = new webSql();
+        date date = new date();
 
-    public static void main(String[] args){
+        Frame f = new Frame("Ñ§Éú¹ÜÀíÏµÍ³");
+        f.setBounds(100, 100, 640, 320);
+        //MenuÎŞ·¨Ö±½ÓÌí¼Óµ½ÈİÆ÷ÖĞ£¬Ö»ÄÜÖ±½ÓÌí¼Óµ½²Ëµ¥ÈİÆ÷ÖĞ
+        JMenu jm = new JMenu("²Ëµ¥");
+        JMenuBar jmb = new JMenuBar();
+        jmb.add(jm);
+        JMenuItem item1 = new JMenuItem("Ìí¼ÓÑ§Éú");
+        JMenuItem item2 = new JMenuItem("²éÑ¯Ä³¸öÑ§Éú");
+        JMenuItem item3 = new JMenuItem("²éÑ¯ËùÓĞÑ§Éú");
+        JMenuItem item4 = new JMenuItem("ĞŞ¸ÄÑ§Éú");
+        JMenuItem item5 = new JMenuItem("É¾³ıÑ§Éú");
+        jm.add(item1);
+        jm.add(item2);
+        jm.add(item3);
+        jm.add(item4);
+        jm.add(item5);
 
-        while(true)
-        {
-            System.out.println("************å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿ*************");
-            System.out.println("            1.æ·»åŠ å­¦ç”Ÿ");
-            System.out.println("            2.æŸ¥çœ‹æ‰€æœ‰å­¦ç”Ÿ");
-            System.out.println("            3.æ ¹æ®å­¦å·æŸ¥æ‰¾å­¦ç”Ÿ");
-            System.out.println("            4.æ ¹æ®å§“åæŸ¥æ‰¾å­¦ç”Ÿ");
-            System.out.println("            5.ä¿®æ”¹å­¦ç”Ÿ");
-            System.out.println("            6.åˆ é™¤å­¦ç”Ÿ");
-            System.out.println("            7.é€€å‡ºç³»ç»Ÿ");
-            System.out.println("**************************************");
-            System.out.println("è¯·è¾“å…¥ç›¸åº”çš„æ•°å­—è¿›è¡Œæ“ä½œï¼š");
-            Scanner scanner=new Scanner(System.in);
-            int input = scanner.nextInt();
-            if(input==7)
-            {
-                break;
+        ButtonGroup jg = new ButtonGroup();
+        JCheckBox jc1 = new JCheckBox("ÄĞ");
+        JCheckBox jc2 = new JCheckBox("Å®");
+        jg.add(jc1);
+        jg.add(jc2);
+
+        JPanel jp = new JPanel();
+        jp.setBackground(Color.white);
+        JButton student_add=new JButton("Ìí¼Ó");
+        JButton student_findbyname=new JButton("ĞÕÃûÄ£ºı²éÑ¯");
+        JButton student_findbynum=new JButton("Ñ§ºÅ¾«È·²éÑ¯²éÑ¯");
+        JButton student_find_all=new JButton("²éÑ¯");
+        JButton student_modify = new JButton("ĞŞ¸Ä");
+        JButton student_delete=new JButton("É¾³ı");
+        JTextArea jt1 = new JTextArea("ĞÕÃû");
+        JTextField student_name = new JTextField(10);
+        JTextArea jt2 = new JTextArea("Ñ§ºÅ");
+        JTextField student_id = new JTextField(10);
+        jp.add(jt1);
+        jp.add(student_name);
+        jp.add(jt2);
+        jp.add(student_id);
+        jp.add(jc1);
+        jp.add(jc2);
+        jp.add(student_add);
+
+        f.add(jmb,BorderLayout.NORTH);
+        f.add(jp,BorderLayout.CENTER);
+        f.setVisible(true);
+        f.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                f.dispose();
             }
-            else
-            {
-                doAction(input);
+        });
+
+        item1.addActionListener(new ActionListener() {//ÇĞ»»ÖÁÌí¼ÓÑ§ÉúÒ³Ãæ
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jp.removeAll();
+                jp.add(jt1);
+                jp.add(student_name);
+                jp.add(jt2);
+                jp.add(student_id);
+                jp.add(jc1);
+                jp.add(jc2);
+                jp.add(student_add);
+                f.validate();
+                f.repaint();
             }
-        }
+        });
+        item2.addActionListener(new ActionListener() {//ÇĞ»»ÖÁ²éÑ¯µ¥¸öÑ§Éú½çÃæ
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.removeAll();
+                jp.removeAll();
+                jp.add(jt1);
+                jp.add(student_name);
+                jp.add(jt2);
+                jp.add(student_id);
+                jp.add(jc1);
+                jp.add(jc2);
+                jp.add(student_findbyname);
+                jp.add(student_findbynum);
+                f.add(jmb,BorderLayout.NORTH);
+                f.add(jp,BorderLayout.CENTER);
+                f.validate();
+                f.repaint();
+            }
+        });
+        item3.addActionListener(new ActionListener() {//ÇĞ»»ÖÁ²éÑ¯ËùÓĞÑ§Éú½çÃæ
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jp.removeAll();
+                jp.add(student_find_all);
+                f.validate();
+                f.repaint();
+            }
+        });
+        item4.addActionListener(new ActionListener() {//ÇĞ»»ÖÁĞŞ¸ÄÒ³Ãæ
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jp.removeAll();
+                jp.add(jt1);
+                jp.add(student_name);
+                jp.add(jt2);
+                jp.add(student_id);
+                jp.add(jc1);
+                jp.add(jc2);
+                jp.add(student_modify);
+                f.validate();
+                f.repaint();
+            }
+        });
+        item5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jp.removeAll();
+                jp.add(jt2);
+                jp.add(student_id);
+                jp.add(student_delete);
+                f.validate();
+                f.repaint();
+            }
+        });
+        jc1.addActionListener(new ActionListener() {//ÄĞÑ¡Ïî¼àÌı
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                temp_sex = "ÄĞ";
+            }
+        });
+        jc2.addActionListener(new ActionListener() {//Å®Ñ¡Ïî¼àÌı
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                temp_sex = "Å®";
+            }
+        });
+        student_add.addActionListener(new ActionListener() {//Ìí¼Ó°´Å¥¼àÌı
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                date.setName(student_name.getText());
+                date.setNumber(student_id.getText());
+                date.setSex(temp_sex);
+                if(sql.add(date))
+                {
+
+                    System.out.println(student_name.getText());
+                    JOptionPane.showMessageDialog(null, "Ìí¼Ó³É¹¦");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "ĞÅÏ¢ÊäÈëÓĞÎó»ò¸ÃÑ§ÉúÒÑ´æÔÚ", "Title",JOptionPane.ERROR_MESSAGE);
+
+                }
+                System.out.println("0");
+            }
+        });
+        student_findbyname.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(sql.getByname(student_name.getText())==null){
+                    JOptionPane.showMessageDialog(null, "Î´ÕÒµ½Ñ§Éú", "Title",JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    List<date> students = sql.getByname(student_name.getText());
+                    for (date s : students) {
+                        System.out.println(s.getName() + "," + s.getNumber());
+                    }
+                    String[] columnNames = {"Name", "number","sex"};
+                    AbstractTableModel tableModel = new AbstractTableModel() {
+                        @Override
+                        public int getRowCount() {
+                            return students.size();     // ĞĞÊıÎª¼¯ºÏ´óĞ¡
+                        }
+                        @Override
+                        public int getColumnCount() {
+                            return columnNames.length;  // ÁĞÊı
+                        }
+                        @Override
+                        public Object getValueAt(int rowIndex, int columnIndex) {
+                            date user = students.get(rowIndex);
+                            if (columnIndex == 0) return user.getName();
+                            if (columnIndex == 1) return user.getNumber();
+                            if (columnIndex == 2) return user.getSex();
+                            return null;
+                        }
+                    };
+                    JTable table = new JTable(tableModel);
+
+                    JScrollPane scrollPane = new JScrollPane(table);
+                    scrollPane.setPreferredSize(new Dimension(200,200));
+                    jp.removeAll();
+                    jp.add(jt1);
+                    jp.add(student_name);
+                    jp.add(jt2);
+                    jp.add(student_id);
+                    jp.add(jc1);
+                    jp.add(jc2);
+                    jp.add(student_findbyname);
+                    jp.add(student_findbynum);
+                    jp.add(scrollPane);
+                    f.validate();
+                    f.repaint();
+                    tableModel.fireTableDataChanged();
+                }
+            }
+        });
+        student_findbynum.addActionListener(new ActionListener() {//Í¨¹ıÑ§ºÅ²éÕÒ°´Å¥¼àÌı
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(sql.getBynum(student_id.getText())==null){
+                    JOptionPane.showMessageDialog(null, "Î´ÕÒµ½Ñ§Éú", "Title",JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    date s = sql.getBynum(student_id.getText());
+                    JOptionPane.showMessageDialog(null, "ĞÕÃû:"+s.getName()+"\n"+"Ñ§ºÅ:"+s.getNumber()+"\n"+"ĞÔ±ğ:"+s.getSex());
+                }
+            }
+        });
+        student_find_all.addActionListener(new ActionListener() {//²éÑ¯ËùÓĞÑ§Éú°´Å¥¼àÌı
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<date> students = sql.getAll();
+                for (date s : students) {
+                    System.out.println(s.getName() + "," + s.getNumber());
+                }
+
+                String[] columnNames = {"Name", "number","sex"};
+                AbstractTableModel tableModel = new AbstractTableModel() {
+                    @Override
+                    public int getRowCount() {
+                        return students.size();     // ĞĞÊıÎª¼¯ºÏ´óĞ¡
+                    }
+                    @Override
+                    public int getColumnCount() {
+                        return columnNames.length;  // ÁĞÊı
+                    }
+                    @Override
+                    public Object getValueAt(int rowIndex, int columnIndex) {
+                        date user = students.get(rowIndex);
+                        if (columnIndex == 0) return user.getName();
+                        if (columnIndex == 1) return user.getNumber();
+                        if (columnIndex == 2) return user.getSex();
+                        return null;
+                    }
+                };
+                JTable table = new JTable(tableModel);
+
+                JScrollPane scrollPane = new JScrollPane(table);
+                scrollPane.setPreferredSize(new Dimension(200,200));
+                jp.removeAll();
+                jp.add(student_find_all);
+                jp.add(scrollPane);
+                f.validate();
+                f.repaint();
+                tableModel.fireTableDataChanged();
+
+
+            }
+        });
+
+        student_modify.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                date.setName(student_name.getText());
+                date.setNumber(student_id.getText());
+                date.setSex(temp_sex);
+                if(sql.modify(date))
+                {
+                    JOptionPane.showMessageDialog(null, "ĞŞ¸Ä³É¹¦");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "ĞÅÏ¢ÊäÈëÓĞÎó»ò¸ÃÑ§ºÅ²»´æÔÚ", "Title",JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        });
+        student_delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                date.setNumber(student_id.getText());
+                if(sql.deleteBynumber(student_id.getText()))
+                {
+                    JOptionPane.showMessageDialog(null, "É¾³ı³É¹¦");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "¸ÃÑ§ºÅ²»´æÔÚ", "Title",JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        });
+
+
 
     }
-    public  static void doAction(int i)
-    {
-        switch (i)
-        {
-            case 1:
-                add();
-                break;
-            case 2:
-                viewall();
-                break;
-            case 3:
-                searchByNo();
-                break;
-            case 4:
-                searchByName();
-                break;
-            case 5:
-                modify();
-                break;
-            case 6:
-                delete();
-                break;
-            default:
-                System.out.println("è¾“å…¥çš„æ•°å­—ä¸åˆæ³•");
-                break;
-        }
 
-    }
-    public static void add()
-    {
-        System.out.println("1.æ·»åŠ å­¦ç”Ÿ");
-    }
-    public static void viewall()
-    {
-        System.out.println("2.æŸ¥çœ‹æ‰€æœ‰å­¦ç”Ÿ");
-    }
-    public static void searchByNo()
-    {
-        System.out.println("3.é€šè¿‡å§“åæŸ¥æ‰¾å­¦ç”Ÿ");
-    }
-    public static void searchByName()
-    {
-        System.out.println("4.é€šè¿‡å­¦å·æŸ¥æ‰¾å­¦ç”Ÿ");
-    }
-    public static void modify()
-    {
-        System.out.println("5.ä¿®æ”¹å­¦ç”Ÿ");
-    }
-    public static void delete()
-    {
-        System.out.println("6.åˆ é™¤å­¦ç”Ÿ");
+    public static void main(String[] args) throws SQLException {
+        MenuDemo();
     }
 
 }
